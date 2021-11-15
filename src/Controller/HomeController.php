@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Job;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
