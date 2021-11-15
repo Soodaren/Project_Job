@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Job{% endblock %}
+
+{% block body %}
+    {% include 'partials/userNavbar.html.twig' %}
+    <div id="job">
+        <div class="ui segment">
+            <div class="ui form">
+                <h1 id="hd">Edit job</h1>
+                {{ form_start(edit, {'attr': {'class': 'ui form'}}) }}
+                {% for field in edit.children %}
+                    {% if field.vars.name != '_token' %}
+                        <div class="field">
+                            <label>{{ form_label(field) }}</label>
+                            {{ form_widget(field) }}
+                            {{ form_errors(field) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <button class="ui primary button" id="btnEdit" type="submit">Edit</button>
+                {{ form_end(edit) }}
+            </div>
+        </div>
+    </div>
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

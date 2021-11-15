@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Job Details{% endblock %}
+
+{% block body %}
+    {% include 'partials/userNavbar.html.twig' %}
+
+    <div class="ui centered card">
+        <div class="image">
+            <img src="{{ asset('images/' ~ data.image) }}">
+        </div>
+        <div class="content">
+            <p class="header">Title: {{ data.title }}</p>
+            <p class="header">Description: {{ data.description }}</p>
+            <p class="header">Qualification: {{ data.qualification }}</p>
+            <p class="header">Salary(Rs): {{ data.salary }}</p>
+            <p class="header">Deadline Date: {{ data.deadlineDate|date("m/d/Y") }}</p>
+        </div>
+        <button class="ui blue button" type="submit"><a href="{{ path('application', {id:data.id}) }}">Apply</a></button>
+    </div>
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

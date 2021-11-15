@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of jobs{% endblock %}
+
+
+{% block body %}
+    {% include 'partials/userNavbar.html.twig' %}
+
+    {% if app.user %}
+        <h2>You are logged in as {{ app.user.username }}</h2>
+    {% endif %}
+
+    <h1 id="hd">List of jobs</h1>
+    <div class="list">
+        <a href="{{ path('addJob') }}" target="_blank" id="addJob">Add Job <i class="book icon"></i></a>
+        <table class="ui fixed table">
+            <tr>
+                <td>Image</td>
+                <td>Title</td>
+                <td>Action</td>
+            </tr>
+            {% for data in job %}
+
+                <tr>
+                    <td><img class="poster" src="{{ asset('images/' ~ data.image) }}" alt="poster"></td>
+                    <td> {{ data.title }}</td>
+                    <td>
+                        <button class="ui blue button"><a class="btn" href="{{ path('view_details', {id:data.id}) }}"
+                                                          target="_blank">View Details</a></button>
+                        <button class="ui blue button"><a class="btn" href="{{ path('edit_job', {id:data.id}) }}"
+                                                          target="_blank">Edit</a></button>
+                        <button class="ui red button" onclick="return alert('Are you sure you want to delete this record?')"><a class="btn"
+                                                                         href="{{ path('delete_job', {id:data.id}) }}">delete</a>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

@@ -1,0 +1,105 @@
+#btnLogin, #btnRegister, #btnAdd, #btnEdit, #btnApply{
+    width: 75%;
+    margin: 15px 40px 10px;
+}
+
+li {
+    color: red;
+    list-style: none;
+}
+
+#hd {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#job, #register, #login{
+    width: 400px;
+    margin: 50px auto;
+}
+
+#addJob{
+    color: black;
+    font-size: 20px;
+}
+
+.list{
+    width: 80%;
+    margin: 15px auto;
+}
+
+.poster{
+    width: 50%;
+}
+
+.btn{
+    color: white;
+}
+
+.btn:hover{
+    color: white;
+}
+
+.ui.secondary.menu{
+    background: cadetblue;
+    height: 50px;
+    margin-top: 0;
+}
+
+#logo{
+    width: 96px;
+}
+
+#signup{
+    margin-top: 12px;
+}
+
+.ui.card{
+    box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.75);
+    width: 250px;
+}
+
+.ui.category.search{
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+#foot{
+    background: #bfc9c2;
+    height: 120px;
+    width: 100%;
+}
+
+.social-media{
+    width: 125px;
+    margin: 10px auto;
+}
+
+.social{
+    font-size: 28px;
+}
+
+.bxl-facebook{
+    color: #3b5998;
+}
+
+.bxl-twitter{
+    color: #1DA1F2;
+}
+
+.bxl-instagram{
+    color: #8a3ab9;
+}
+
+.bxl-github{
+    color: #171515;
+}
+
+#cr{
+    text-align: center;
+    color:black;
+}
+
+a{
+    color: white;
+}

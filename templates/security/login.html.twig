@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in{% endblock %}
+{% block body %}
+    {% include 'partials/navbar.html.twig' %}
+    {# <div class="ui success message"> #}
+    {# <i class="close icon"></i> #}
+    {# <div class="header"> #}
+    {# Your user registration was successful. #}
+    {# </div> #}
+    {# </div> #}
+
+    <div id="login">
+        <div class="ui segment">
+            <div class="ui form">
+                <form action="{{ path('login') }}" method="post">
+                    {% if error %}
+                        <div class="ui negative message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <h1 style="text-align: center;text-transform: uppercase;">Login</h1>
+                    <label for="inputUsername">Username</label>
+                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                           class="form-control"
+                           autocomplete="username" required>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control"
+                           autocomplete="current-password" required>
+
+                    <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    {# <div class="checkbox mb-3"> #}
+                    {# <label> #}
+                    {# <input type="checkbox" name="_remember_me"> Remember me #}
+                    {# </label> #}
+                    {# </div> #}
+
+                    <p id="signup">Don't have an account yet?<a href="{{ path('register') }}"> Sign up</a></p>
+                    <button class="ui primary button" id="btnLogin" type="submit">
+                        login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% include 'partials/navbar.html.twig' %}
+    <div id="register">
+        <div class="ui segment">
+            <div class="ui form">
+                <h1 id="hd">Register</h1>
+                {{ form_start(form, {'attr': {'class': 'ui form'}}) }}
+
+                {% for field in form.children %}
+                    {% if field.vars.name != '_token' %}
+                        <div class="field">
+                            {% if field.vars.name != 'password' %}
+                                <label>{{ form_label(field) }}</label>
+                            {% endif %}
+                            {{ form_widget(field) }}
+                            {{ form_errors(field) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <button class="ui primary button" id="btnRegister" type="submit">Register</button>
+                {{ form_end(form) }}
+
+                {% for message in app.flashes('success') %}
+                    <div class="ui success message">
+                        <i class="close icon"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}
