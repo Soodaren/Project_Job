@@ -12,6 +12,9 @@
                     {% if field.vars.name != '_token' %}
                         <div class="field">
                             <p>{{ job.title }}</p>
+                            <p>{{ job.description }}</p>
+                            <p>{{ job.Qualification }}</p>
+                            <p>{{ job.salary }}</p>
                             <label>{{ form_label(field) }}</label>
                             {{ form_widget(field) }}
                             {{ form_errors(field) }}

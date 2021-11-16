@@ -1,7 +1,35 @@
-<h1>hello</h1>
-{{ dump(api) }}
-{% for data in api %}
+<div class="ui people shape">
+    <div class="sides">
+        <div class="active side">
+            {% for item in response.items %}
+            <div class="ui card">
+                <div class="image">
+                    <img src="{{ item.images[1].url }}" alt="image">
+                </div>
+                <div class="content">
+                    <div class="header">{{ item.name }}</div>
+                    <div class="meta">
+                        <p>{{ item.release_date }}</p>
+                    </div>
+                    {% for aritistName in item.artists %}
+                        <span>{{ aritistName.name }}</span>
+                    {% endfor %}
+                    <div class="description">
+                        Steve Jobes is a fictional character designed to resemble someone familiar to readers.
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 
+{#{% for item in response.items %}#}
 
-{% endfor %}
+
+{#            <img src="{{ item.images[2].url }}" width="120px" height="120px" alt="image">#}
+{#            <p>{{ item.name }}</p>#}
+{#            <p>{{ item.release_date }}</p>#}
+
+{#{% endfor %}#}

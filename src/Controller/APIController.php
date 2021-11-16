@@ -10,29 +10,32 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class APIController extends AbstractController
 {
+
+    const TOKEN = "BQCkaJXcO4uRoSRW6M6DVywA4-7f4oYD_-AENYCxZk1TQxVxNyGwrSon-HfZSbkQ7dgGz4h_gnpbMrsnonpO6iTr9XNY6M5l1pHv1lLs-JZZe71MwjESlaj1Xq9xfGWfSoFy9-BFFl5y5TYsPwWwoPvwtpo-dmI";
+    const URL = "https://api.spotify.com/";
     /**
      * @Route("/api", name="api")
      * @throws GuzzleException
      */
     public function Api(): Response
     {
-        // Create a client with a base URI
-        $client = new Client(['base_uri' => 'https://api.spotify.com/']);
 
-        $token = "BQBjq99Zw_M8uCMzl3gO_fx2dU5Cz_bVetdG7Q2GGWJwlYKXxitaVh9WPzUpYbsHCV0fVGREhZIR-kMylm89LlPedS_iZ81Tcie9eFsztZ5OOtxljKczNqpM0PD_PTGL0N1GTlOALvNrZHoOJ5wEhGerw5wJjMI";
+        $client = new Client(['base_uri' => self::URL,'timeout' => 0]);
+
         $headers = [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer ' . self::TOKEN,
             'Accept'        => 'application/json',
         ];
         $response = $client->request(
             'GET',
-            'v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks',
+            'v1/artists/0TnOYISbd1XYRBk9myaseg/albums',
             ['headers' => $headers]
         )->getBody()->getContents();
 
         $response = json_decode($response, true);
+
         return $this->render('api/index.html.twig', [
-            'api' => $response
+            'response' => $response
         ]);
     }
 }

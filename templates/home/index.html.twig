@@ -4,6 +4,7 @@
 
 {% block body %}
     {% include 'partials/navbar.html.twig' %}
+    {{ render(path('api')) }}
     {% include 'partials/searchjob.html.twig' with job %}
     {% include 'partials/footer.html.twig' %}
 
