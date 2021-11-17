@@ -4,7 +4,6 @@ $('.close.icon').on('click', function () {
 
 function del() {
     alert("Are you sure you want to delete this record?");
-    console.log("hello");
 }
 
 $("#search-box").keyup(function () {
@@ -20,4 +19,20 @@ $("#search-box").keyup(function () {
         error: function (response) {
         }
     });
+});
+
+$(document).ready(function(){
+    let yClass = $('.your-class');
+
+    yClass.slick({
+        infinite: true,
+        slidesToShow: 4,
+        speed: 300,
+        centerMode: true,
+        // variableWidth: true
+    });
+
+    yClass.append($('.slick-prev'))
+    yClass.append($('.slick-next'))
+
 });

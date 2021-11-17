@@ -1,35 +1,38 @@
-<div class="ui people shape">
-    <div class="sides">
-        <div class="active side">
-            {% for item in response.items %}
-            <div class="ui card">
-                <div class="image">
-                    <img src="{{ item.images[1].url }}" alt="image">
-                </div>
-                <div class="content">
-                    <div class="header">{{ item.name }}</div>
-                    <div class="meta">
-                        <p>{{ item.release_date }}</p>
-                    </div>
-                    {% for aritistName in item.artists %}
-                        <span>{{ aritistName.name }}</span>
-                    {% endfor %}
-                    <div class="description">
-                        Steve Jobes is a fictional character designed to resemble someone familiar to readers.
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+{#{% set item = response.items[0] %}#}
+{#<div id="songs">#}
+{#    <div class="ui people shape">#}
+{#        <div class="sides">#}
+{#            <div class="active side">#}
+{#                <div class="ui card">#}
+{#                    <div class="image">#}
+{#                        <img src="{{ item.images[1].url }}" alt="image">#}
+{#                    </div>#}
+{#                    <div class="content">#}
+{#                        <div class="header">{{ item.name }}</div>#}
+{#                        <div class="meta">#}
+{#                            <p>{{ item.release_date }}</p>#}
+{#                            <p>{{ item.total_tracks }}</p>#}
+{#                        </div>#}
+{#                        <div class="description">#}
+{#                            {% set aritistName = item.artists[0] %}#}
+{#                            <p>{{ aritistName.name }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="ui icon buttons" style="margin-left: 25px">#}
+{#                    <button class="ui button" style="margin-right: 10px">Previous<i class="arrow left icon"></i>#}
+{#                    </button>#}
+{#                    <button class="ui button">Next<i class="arrow right icon"></i></button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+
+<div class="your-class">
+    {% for item in response.items %}
+        <div><img src="{{ item.images[1].url }}"alt=""></div>
+    {% endfor %}
+
 </div>
-
-
-{#{% for item in response.items %}#}
-
-
-{#            <img src="{{ item.images[2].url }}" width="120px" height="120px" alt="image">#}
-{#            <p>{{ item.name }}</p>#}
-{#            <p>{{ item.release_date }}</p>#}
-
-{#{% endfor %}#}

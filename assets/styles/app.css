@@ -100,6 +100,15 @@ li {
     color:black;
 }
 
-a{
-    color: white;
+#songs{
+    margin: 1em 4em;
+}
+
+#viewDetails{
+    margin: 7em 10em;
+}
+
+#apply{
+    width: 80%;
+    margin: 32px 12px;
 }

@@ -12,6 +12,8 @@ require('../node_modules/jquery/dist/jquery.js');
 require('./js/main.js');
 require('../node_modules/semantic-ui/dist/semantic.min.css');
 require('../node_modules/semantic-ui/dist/semantic.min.js');
+require('../node_modules/slick-carousel/slick/slick.css')
+require('../node_modules/slick-carousel/slick/slick.js')
 
 // start the Stimulus application
 import './bootstrap';

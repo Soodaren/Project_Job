@@ -5,18 +5,29 @@
 {% block body %}
     {% include 'partials/userNavbar.html.twig' %}
 
-    <div class="ui centered card">
-        <div class="image">
-            <img src="{{ asset('images/' ~ data.image) }}">
+    <div id="viewDetails">
+        <div class="ui card" style="width: 60%;">
+            <div class="content">
+                <div class="ui items">
+                    <div class="item">
+                        <div class="ui medium image">
+                            <img src="{{ asset('images/' ~ data.image) }}">
+                        </div>
+                        <div class="content" style="padding: 1rem;">
+                            <p class="header">Title: {{ data.title }}</p>
+                            <div class="meta">
+                                <p class="header">Description: {{ data.description }}</p>
+                                <p class="header">Qualification: {{ data.qualification }}</p>
+                                <p class="header">Salary(Rs): {{ data.salary }}</p>
+                                <p class="header">Deadline Date: {{ data.deadlineDate|date("m/d/Y") }}</p>
+                            </div>
+                            <a href="{{ path('application', {id:data.id}) }}"><button class="ui blue button" id="apply" type="submit">Apply
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="content">
-            <p class="header">Title: {{ data.title }}</p>
-            <p class="header">Description: {{ data.description }}</p>
-            <p class="header">Qualification: {{ data.qualification }}</p>
-            <p class="header">Salary(Rs): {{ data.salary }}</p>
-            <p class="header">Deadline Date: {{ data.deadlineDate|date("m/d/Y") }}</p>
-        </div>
-        <button class="ui blue button" type="submit"><a href="{{ path('application', {id:data.id}) }}">Apply</a></button>
     </div>
     {% include 'partials/footer.html.twig' %}
 {% endblock %}
