@@ -112,3 +112,16 @@ li {
     width: 80%;
     margin: 32px 12px;
 }
+
+.your-class{
+    width: 350px;
+    margin-left: 450px;
+}
+
+#details{
+    display: none;
+}
+
+#image:hover + #details{
+    display: block;
+}

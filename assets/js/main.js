@@ -22,17 +22,30 @@ $("#search-box").keyup(function () {
 });
 
 $(document).ready(function(){
-    let yClass = $('.your-class');
+    let endpoint = 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?limit=10&offset=5'
+    let token = 'BQDVKd0-7IZTigJ3M9zg41k_IqiUefQ4pIo_y8U2PUwjVF69ybMGHft2pex5Qf2bkPngmR2CgIp9HroJ4RgzXYsmH9Oce4ZziLYiksGqDNTOtFytqPSceUDcqnHdRV4yPxjWFq1qIqXr7qkCi7cECuF8wtvhQHM'
 
-    yClass.slick({
+
+    $('.your-class').slick({
+        dots: true,
         infinite: true,
-        slidesToShow: 4,
-        speed: 300,
-        centerMode: true,
-        // variableWidth: true
+        arrows: true,
+        fade: true,
+        autoplay: true,
+        speed: 300
     });
 
-    yClass.append($('.slick-prev'))
-    yClass.append($('.slick-next'))
+    $('.slick-next').css('background','black');
+    $('.slick-prev').css('background','black');
 
+    $('.slick-next').onclick(function(){
+        $.ajax({
+            url: endpoint + "?token="+token +"&q=" + $(this).text(),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(result){
+                console.log(result);
+            }
+        })
+    });
 });
