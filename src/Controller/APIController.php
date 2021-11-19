@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\JobService;
+use App\Service\MusicService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +16,12 @@ class APIController extends AbstractController
      * @Route("/api", name="api")
      * @throws GuzzleException
      */
-    public function apiSpotify(JobService $jobService): Response
+    public function apiSpotify(MusicService $musicService): Response
     {
-        $job = $jobService->getJob();
+        $music = $musicService->getMusic();
 
         return $this->render('api/index.html.twig', [
-            'response' => $job
+            'response' => $music
         ]);
     }
 }
