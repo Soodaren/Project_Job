@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z]+\d{2}[@][a-z]{5}[.][a-z]{2,3}/",
+     *     message="invalid format")
      */
     private $email;
 
@@ -60,8 +63,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180)
      * @Assert\NotBlank(message="This field cannot be empty!")
      * @Assert\Regex(
-     *     pattern = "/^[a-zA-Z]{5,10}+[0-9]{2,5}$/",
-     *     message = "Username must contain 5-10 letters and 2-5 digits")
+     *     pattern = "/^[a-zA-Z]{4,8}+[0-9]{2,4}$/",
+     *     message = "Username must contain 4-8 letters and 2-4 digits")
      */
     private $username;
 

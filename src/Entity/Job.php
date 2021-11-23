@@ -29,26 +29,28 @@ class Job
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
+     * @Assert\Length(max=250, maxMessage="Description cannot be longer than {{ limit }} characters")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
+     * @Assert\Length(max=50, maxMessage="Qualification cannot be longer than {{ limit }} characters")
      */
     private $qualification;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
-     * @Assert\Regex(pattern = "/^\d{5,6}/", message="Must contain numbers only and must be between 5-6 digits")
+     * @Assert\Regex(pattern = "/^\d{5,6}$/", message="Must contain numbers only and must be between 5-6 digits")
      */
     private $salary;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank(message="This field cannot be empty!")
-     * @Assert\GreaterThan("today")
+     * @Assert\GreaterThan("today", message="Deadline date must be greater than {{ compared_value }}")
      */
     private $deadline_date;
 

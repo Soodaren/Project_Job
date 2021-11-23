@@ -5,11 +5,9 @@
                style="border-radius: 25px;">
         <i class="search icon"></i>
     </div>
-    <div class="results"></div>
 </div>
 
 <div class="list">
-
     <div class="ui link cards">
         {% for data in job %}
             <div class="ui card" style="box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.75); width: 250px;">
@@ -19,7 +17,8 @@
                 <div class="content">
                     <p class="header">{{ data.title }}</p>
                     <div class="extra content">
-                        <button class="ui blue button"><a class="btn" id="show" href="{{ path('login') }}" target="_blank">Show More</a></button>
+                        <button class="ui blue button"><a class="btn" id="show" href="{{ path('login') }}"
+                                                          target="_blank">Show More</a></button>
                     </div>
 
                 </div>

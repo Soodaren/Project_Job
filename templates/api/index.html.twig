@@ -1,38 +1,6 @@
-{#{% set item = response.items[0] %}#}
-{#<div id="songs">#}
-{#    <div class="ui people shape">#}
-{#        <div class="sides">#}
-{#            <div class="active side">#}
-{#                <div class="ui card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ item.images[1].url }}" alt="image">#}
-{#                    </div>#}
-{#                    <div class="content">#}
-{#                        <div class="header">{{ item.name }}</div>#}
-{#                        <div class="meta">#}
-{#                            <p>{{ item.release_date }}</p>#}
-{#                            <p>{{ item.total_tracks }}</p>#}
-{#                        </div>#}
-{#                        <div class="description">#}
-{#                            {% set aritistName = item.artists[0] %}#}
-{#                            <p>{{ aritistName.name }}</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="ui icon buttons" style="margin-left: 25px">#}
-{#                    <button class="ui button" style="margin-right: 10px">Previous<i class="arrow left icon"></i>#}
-{#                    </button>#}
-{#                    <button class="ui button">Next<i class="arrow right icon"></i></button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-
-
 <div class="your-class">
-    {% for item in response.items %}
-        <div id="image"><img src="{{ item.images[1].url }}" alt=""></div>
+    {% for album in response.albums %}
+        <img id="posterAPI" src="{{ album.images[1].url }}" alt="poster">
     {% endfor %}
 
 </div>

@@ -2,13 +2,14 @@
 
 namespace App\Service;
 
+use App\Entity\Artist;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 class MusicService
 {
 
-    const TOKEN = "BQCZteJOn5fa23CRt-NuIqZzcj7sMkzYxx5Ocf4ytAp6XQGdzu3UMsZE-sRNWbzt6-NviMkn8sR8FSW1rO2-4h2mHUs0_-yK4Ff2EpTdcw0ZvUt5T6e6dI8KN9GemFeMORoVRgUZMr7A7se8HEdc0q6PcWufJNg";
+    const TOKEN = "BQBpbf2YbhCaL3diIDxT77--DQYAiEMlt3uZo9MEfC4ZAOCtOJrJDPGuX3XrTnPC3NOFY8c1j1K-cPBQJrPqvNaNNSCfTRtiaJPU5YZJbptRfEelmfpl2Vftos5NB5i5B9DzsycOKvRrKySd9xr_HqHmS93enDE";
     const URL = "https://api.spotify.com/";
 
     /**
@@ -19,7 +20,7 @@ class MusicService
 
         $response = $client->request(
             'GET',
-            'v1/artists/0TnOYISbd1XYRBk9myaseg/albums?limit=10&offset=5',
+            'v1/albums?ids=382ObEPsp2rxGrnsizN5TX%2C1A2GTWGtFfWp7KSQTwWOyo%2C2noRn2Aes5aoNVsU6iWThc&market=ES',
             ['headers' => [
                 'Authorization' => 'Bearer ' . self::TOKEN,
                 'Accept'        => 'application/json',
@@ -28,5 +29,20 @@ class MusicService
 
         return json_decode($response, true);
 
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function createArtist($albums){
+        $this->getMusic();
+        foreach($albums['albums'] as $album){
+            foreach ($album['artists'] as $artist){
+                $name = $artist['name'];
+
+                $artist = new Artist();
+                $artist->setName($name);
+            }
+        }
     }
 }

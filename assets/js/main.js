@@ -23,8 +23,7 @@ $("#search-box").keyup(function () {
 
 $(document).ready(function(){
     let endpoint = 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?limit=10&offset=5'
-    let token = 'BQCZteJOn5fa23CRt-NuIqZzcj7sMkzYxx5Ocf4ytAp6XQGdzu3UMsZE-sRNWbzt6-NviMkn8sR8FSW1rO2-4h2mHUs0_-yK4Ff2EpTdcw0ZvUt5T6e6dI8KN9GemFeMORoVRgUZMr7A7se8HEdc0q6PcWufJNg'
-
+    let token = 'BQBUN30eyiDYjn5IG4Oi-ktuEAX4SovL-nENFfkXIsA7bgi-59r2nNLzosF7DpmDKGQzXS_QPT-MzRkjO1a1Q7RFH6JmcvJPAEUTDBdMUM0jZoS1crekURLRPf1og8mkHpYbW9V6MZlkujZS2hmziKBZg_Tq-iA'
 
     $('.your-class').slick({
         dots: true,
@@ -35,8 +34,8 @@ $(document).ready(function(){
         speed: 300
     });
 
-    $('.slick-next').css('background','black');
-    $('.slick-prev').css('background','black');
+    $('.slick-next').css({'background':'whitesmoke', 'color': 'black'});
+    $('.slick-prev').css({'background':'whitesmoke'});
 
     $('.slick-next').onclick(function(){
         $.ajax({

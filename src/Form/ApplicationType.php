@@ -22,7 +22,11 @@ class ApplicationType extends AbstractType
             ->add('apply_date', DateType::class,
                 [
                     'widget' => 'single_text',
-                    'data' => new \DateTime("now")
+                    'data' => new \DateTime("now"),
+                    'attr' =>
+                        [
+                            'readonly' => true
+                        ]
                 ]
             )
             ->add('cv', FileType::class, array('data_class' => null)
