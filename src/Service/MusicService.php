@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Album;
 use App\Entity\Artist;
+use App\Entity\Music;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class MusicService
 {
 
-    const TOKEN = "BQDme-2OwqLiB3d6v3mFK93BiIiv63INqhtzweGUE8B_8TvG_RWF_m3Hk9eVPzz_NRWBpZe9eYMurvnQi9xA0r-3bYR--9M5R7LL_rO-W8sYN3mQoGM3ZVOuBqfVX6ynzGbsnXVdNALW03c_0YBpJ2tR7cuMX64";
+    const TOKEN = "BQCAtPu255mMLDo1zoxwz2omVd-A0-QonUlj_Q_GqqDI8DN-FtaaQhhrZBshI6m7W-UgmUbhTSd0zSe3Bml5rqPi3WAg1zwwmziYiIy6-nh0uD1_SCSlBWBTk0d62RfZ2oRH61yx3IvQRvkSUNXni6izWXME8LM";
     const URL = "https://api.spotify.com/";
 
     /**
@@ -73,13 +74,13 @@ class MusicService
         }
     }
 
-    public function checkIfArtistExists($artistName): array
+    public function getArtistByName($artistName)
     {
         return
             $this
                 ->em
                 ->getRepository(Artist::class)
-                ->findBy([
+                ->findOneBy([
                     'name' => $artistName
                 ]);
     }
@@ -87,15 +88,14 @@ class MusicService
     public function saveArtist($artistDetails)
     {
         //loop in array albums
-        foreach ($artistDetails['albums'] as $tracks) {
-            $items = $tracks['tracks'];
+        foreach ($artistDetails['albums'] as $album) {
+            $items = $album['tracks'];
 
             //loop in array items
             foreach ($items['items'] as $artists) {
 
                 //loop in array artists
                 foreach ($artists['artists'] as $artist) {
-//                    dd($artists['artists']);
                     $name = $artist['name'];
                     $artist = new Artist();
                     $artist->setName($name);
@@ -106,9 +106,22 @@ class MusicService
         $this->em->flush();
     }
 
-    public function updateArtist()
+    /**
+     * @throws GuzzleException
+     */
+    public function updateArtist($artistName)
     {
+        $result = $this
+            ->em
+            ->getRepository(Artist::class)
+            ->findByName($artistName);
 
+        $api = $this->getMusic();
+        $name = $api['albums']['tracks']['items']['artists']['name'];
+
+        $result->setName($name);
+        $this->em->persist($result);
+        $this->em->flush();
     }
 
     /**
@@ -131,13 +144,13 @@ class MusicService
     }
 
     //Check if album exists by title
-    public function checkIfAlbumExists($albumTitle): array
+    public function getAlbumByTitle($albumTitle)
     {
         return
             $this
                 ->em
                 ->getRepository(Album::class)
-                ->findBy([
+                ->findOneBy([
                     'title' => $albumTitle
                 ]);
     }
@@ -174,6 +187,53 @@ class MusicService
 
             $this->em->persist($album);
 
+        }
+        $this->em->flush();
+    }
+
+    /**
+     * @param $output
+     * @return array|false
+     * @throws GuzzleException
+     */
+    public function fetchMusicDetails($output)
+    {
+        try {
+            return $this
+                ->getMusic();
+        } catch (\Exception $exception) {
+            $output->writeln(['Album Details fetched from api failed, exit']);
+
+            return false;
+        }
+    }
+
+    public function getMusicByTitle($musicTitle)
+    {
+        return
+            $this
+                ->em
+                ->getRepository(Music::class)
+                ->findOneBy([
+                    'title' => $musicTitle
+                ]);
+    }
+
+    public function saveMusic($musicDetails)
+    {
+        foreach ($musicDetails['albums'] as $album) {
+            $items = $album['tracks'];
+            $albumObj = $this->getAlbumByTitle($album['name']);
+            foreach ($items['items'] as $track) {
+
+                $title = $track['name'];
+                $duration = $track['duration_ms'];
+                $music = new Music();
+                $music->setTitle($title);
+                $music->setDuration($duration);
+                $music->setAlbum($albumObj);
+                $this->em->persist($music);
+            }
         }
         $this->em->flush();
     }
