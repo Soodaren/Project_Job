@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class MusicService
 {
 
-    const TOKEN = "BQCAtPu255mMLDo1zoxwz2omVd-A0-QonUlj_Q_GqqDI8DN-FtaaQhhrZBshI6m7W-UgmUbhTSd0zSe3Bml5rqPi3WAg1zwwmziYiIy6-nh0uD1_SCSlBWBTk0d62RfZ2oRH61yx3IvQRvkSUNXni6izWXME8LM";
+    const TOKEN = "BQDBhaZs2xsPlVHV26nyk58oVjrzaCoesk9G51X7ywvXGKQbEv2D8yV3JBZ-xZ4pxb7hcpcdJ6BgbLw3AKIaJVCFiLNOfj2RInP6rhZo-GMtyFDHQ1l89NyhlGJwoc-wlg1-b80qwGfxXgqscqz5Ctn3P1Cftag";
     const URL = "https://api.spotify.com/";
 
     /**
@@ -74,15 +74,13 @@ class MusicService
         }
     }
 
-    public function getArtistByName($artistName)
+    public function getArtistById($id): bool
     {
-        return
-            $this
-                ->em
-                ->getRepository(Artist::class)
-                ->findOneBy([
-                    'name' => $artistName
-                ]);
+        return !empty(
+        $this
+            ->em
+            ->getRepository(Artist::class)
+            ->findById($id));
     }
 
     public function saveArtist($artistDetails)
@@ -96,32 +94,32 @@ class MusicService
 
                 //loop in array artists
                 foreach ($artists['artists'] as $artist) {
-                    $name = $artist['name'];
-                    $artist = new Artist();
-                    $artist->setName($name);
-                    $this->em->persist($artist);
+
+                    $idol = new Artist();
+                    $idol->setName($artist['name']);
+                    $idol->setArtistId($artist['id']);
+                    $this->em->persist($idol);
                 }
             }
         }
         $this->em->flush();
     }
 
-    /**
-     * @throws GuzzleException
-     */
-    public function updateArtist($artistName)
+    public function updateArtist($artist)
     {
+        $id = $artist['id'];
+        $name = $artist['name'];
+
         $result = $this
             ->em
             ->getRepository(Artist::class)
-            ->findByName($artistName);
-
-        $api = $this->getMusic();
-        $name = $api['albums']['tracks']['items']['artists']['name'];
+            ->findById($id);
 
         $result->setName($name);
+        $result->setArtistId($id);
         $this->em->persist($result);
         $this->em->flush();
+
     }
 
     /**
@@ -208,33 +206,52 @@ class MusicService
         }
     }
 
-    public function getMusicByTitle($musicTitle)
+    public function getMusicById($id): bool
     {
-        return
-            $this
-                ->em
-                ->getRepository(Music::class)
-                ->findOneBy([
-                    'title' => $musicTitle
-                ]);
+        return !empty(
+        $this
+            ->em
+            ->getRepository(Music::class)
+            ->findById($id));
     }
 
     public function saveMusic($musicDetails)
     {
         foreach ($musicDetails['albums'] as $album) {
+
             $items = $album['tracks'];
             $albumObj = $this->getAlbumByTitle($album['name']);
             foreach ($items['items'] as $track) {
 
                 $title = $track['name'];
                 $duration = $track['duration_ms'];
+                $id = $track['id'];
                 $music = new Music();
                 $music->setTitle($title);
                 $music->setDuration($duration);
                 $music->setAlbum($albumObj);
+                $music->setMusicId($id);
                 $this->em->persist($music);
             }
         }
+        $this->em->flush();
+    }
+
+    public function updateMusic($music){
+
+        $id = $music['id'];
+        $title = $music['title'];
+        $duration = $music['duration'];
+
+        $result = $this
+            ->em
+            ->getRepository(Music::class)
+            ->findById($id);
+
+        $result->setTitle($title);
+        $result->setMusicId($id);
+        $result->setDuration($duration);
+        $this->em->persist($result);
         $this->em->flush();
     }
 }
