@@ -23,7 +23,7 @@ $("#search-box").keyup(function () {
 
 $(document).ready(function(){
     let endpoint = 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?limit=10&offset=5'
-    let token = 'BQAT5X03qG8iNGbQfUYe1MpaowK1VEHqhFNrO6bb3T845OeqxLQdlg6fdW1QGy9A2Nd5FP5JpzKQfunkB_xvjdR4Du2eOt91R7SesJQSIP3SS8ODUAda-uDncQSA7ER4Pme5p_-L8JGntmBYslHK8B3GHwKr5D0'
+    let token = 'BQAY7Gg5Xo6tyq_4_YerXS06CGtUWXBBGgZ5OZVI8dB9Spg46cUTqbhc_fSPqLSLUad5yf8dnjcwTpIq1pRUTAv7qHH8jslx6VbV18CFwP4vJR_4Wo6TSH3YhpJqNNTzavVj-XS_cJYTGs6vDPhR-6Kq78NttTY'
 
     $('.your-class').slick({
         dots: true,

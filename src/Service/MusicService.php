@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class MusicService
 {
 
-    const TOKEN = "BQDBhaZs2xsPlVHV26nyk58oVjrzaCoesk9G51X7ywvXGKQbEv2D8yV3JBZ-xZ4pxb7hcpcdJ6BgbLw3AKIaJVCFiLNOfj2RInP6rhZo-GMtyFDHQ1l89NyhlGJwoc-wlg1-b80qwGfxXgqscqz5Ctn3P1Cftag";
+    const TOKEN = "BQDyd0s3KJJdNX6Fv1fSuZVd72Qgbzt6sQmzxzq1vxYfkhVz7K1RO-6Jl7D-QGPB4FUFNNh3H73B80C25FNZMUSAk_SdTnHHSKp6LhqXbUUuKkq_T8DTaKToPQ4HVVxhPjk_I9SzVuJmRMPa0T-6f20yT3ujS_A";
     const URL = "https://api.spotify.com/";
 
     /**
@@ -141,7 +141,7 @@ class MusicService
         }
     }
 
-    //Check if album exists by title
+    //Find album by title
     public function getAlbumByTitle($albumTitle)
     {
         return
@@ -153,12 +153,22 @@ class MusicService
                 ]);
     }
 
+    public function getAlbumById($id): bool
+    {
+        return !empty(
+        $this
+            ->em
+            ->getRepository(Album::class)
+            ->findById($id));
+    }
+
     //save api data in DB
     public function saveAlbum($albumDetails)
     {
         //loop in array albums to retrieve release date,name,total tracks
         foreach ($albumDetails['albums'] as $albums) {
             $releaseDate = $albums['release_date'];
+            $id = $albums['id'];
             $title = $albums['name'];
             $totalTracks = $albums['total_tracks'];
 
@@ -171,6 +181,7 @@ class MusicService
 
             $album = new Album();
             $album->setTitle($title);
+            $album->setAlbumId($id);
             $album->setTotalTracks($totalTracks);
             $album->setReleaseDate($date);
 
@@ -189,6 +200,39 @@ class MusicService
         $this->em->flush();
     }
 
+    public function updateAlbum($album)
+    {
+        $id = $album['id'];
+        $title = $album['name'];
+        $totalTracks = $album['total_tracks'];
+        $releaseDate = $album['release_date'];
+        $date = \DateTime::createFromFormat('Y-m-d', $releaseDate);
+
+        foreach ($album['images'] as $images) {
+            $image = $images['url'];
+        }
+
+        $posterName = uniqid() . '.jpg';
+
+        $content = file_get_contents($image);
+        $fp = fopen($this->parameterBag->get('kernel.project_dir') . "/public/images/" . $posterName, "w");
+        fwrite($fp, $content);
+        fclose($fp);
+
+        $result = $this
+            ->em
+            ->getRepository(Album::class)
+            ->findById($id);
+
+        $result->setTitle($title);
+        $result->setAlbumId($id);
+        $result->setTotalTracks($totalTracks);
+        $result->setReleaseDate($date);
+        $result->setPoster($posterName);
+        $this->em->persist($result);
+        $this->em->flush();
+    }
+
     /**
      * @param $output
      * @return array|false
@@ -200,7 +244,7 @@ class MusicService
             return $this
                 ->getMusic();
         } catch (\Exception $exception) {
-            $output->writeln(['Album Details fetched from api failed, exit']);
+            $output->writeln(['Music Details fetched from api failed, exit']);
 
             return false;
         }
@@ -237,11 +281,12 @@ class MusicService
         $this->em->flush();
     }
 
-    public function updateMusic($music){
+    public function updateMusic($music)
+    {
 
         $id = $music['id'];
-        $title = $music['title'];
-        $duration = $music['duration'];
+        $title = $music['name'];
+        $duration = $music['duration_ms'];
 
         $result = $this
             ->em

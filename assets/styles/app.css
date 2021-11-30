@@ -28,7 +28,7 @@ label{
 }
 
 #login{
-    width: 400px;
+    width: 350px;
     margin: 50px auto 80px;
 }
 
@@ -56,12 +56,12 @@ label{
 
 .ui.secondary.menu{
     background: cadetblue;
-    height: 50px;
+    height: 55px;
     margin-top: 0;
 }
 
 #logo{
-    width: 96px;
+    width: 100px;
 }
 
 #signup{
