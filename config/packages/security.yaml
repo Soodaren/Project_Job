@@ -47,3 +47,4 @@ security:
      - { path: ^/list, roles: ROLE_USER }
      - { path: ^/viewDetails/, roles: ROLE_USER }
      - { path: ^/editJob/, roles: ROLE_USER }
+     - { path: ^/application/, roles: ROLE_USER }

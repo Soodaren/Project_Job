@@ -17,13 +17,14 @@ $("#search-box").keyup(function () {
             $('.list').html(response.searchJob);
         },
         error: function (response) {
+
         }
     });
 });
 
-$(document).ready(function(){
+$(document).ready(function () {
     let endpoint = 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?limit=10&offset=5'
-    let token = 'BQAY7Gg5Xo6tyq_4_YerXS06CGtUWXBBGgZ5OZVI8dB9Spg46cUTqbhc_fSPqLSLUad5yf8dnjcwTpIq1pRUTAv7qHH8jslx6VbV18CFwP4vJR_4Wo6TSH3YhpJqNNTzavVj-XS_cJYTGs6vDPhR-6Kq78NttTY'
+    let token = 'BQCJefI9kiAUvAgZxVl5ZCIgL7cXTrKK9nfq9HbaP738IlEbBVb5r7riYvNlaYAyewdQ0i9Bi51-vz7h652532CAmPk-y6J3ygYeWRV8MoQ6BQUj2qEBtMW7MawS4JaBQ97iYN4BZO8KH5NjPVdQfqE0xfAR_as'
 
     $('.your-class').slick({
         dots: true,
@@ -34,15 +35,12 @@ $(document).ready(function(){
         speed: 300
     });
 
-    $('.slick-next').css({'background':'whitesmoke', 'color': 'black'});
-    $('.slick-prev').css({'background':'whitesmoke'});
-
-    $('.slick-next').onclick(function(){
+    $('.slick-next').onclick(function () {
         $.ajax({
-            url: endpoint + "?token="+token +"&q=" + $(this).text(),
+            url: endpoint + "?token=" + token + "&q=" + $(this).text(),
             contentType: "application/json",
             dataType: 'json',
-            success: function(result){
+            success: function (result) {
                 console.log(result);
             }
         })

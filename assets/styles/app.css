@@ -42,6 +42,10 @@ label{
     margin: 15px auto;
 }
 
+.list > #search{
+    display: none;
+}
+
 .poster{
     width: 50%;
 }
@@ -69,9 +73,20 @@ label{
     margin-top: 12px;
 }
 
-.ui.card{
+.ui.link.cards > .ui.card{
     box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.75);
     width: 250px;
+}
+
+#notFound{
+    margin: 1em auto;
+    text-align: center;
+    font-size: 32px;
+    color: red;
+}
+
+#search-box{
+    border-radius: 25px;
 }
 
 .ui.category.search{
@@ -140,5 +155,11 @@ label{
 }
 
 #posterAPI{
+    width: 400px;
     height: 250px;
+}
+
+.slick-prev:before,.slick-next:before{
+    color: #8a97ab;
+    font-size: 22px;
 }

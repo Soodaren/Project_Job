@@ -1,6 +1,6 @@
 <div class="your-class">
     {% for album in response.albums %}
-        <img id="posterAPI" src="{{ album.images[1].url }}" alt="poster">
+            <a href="{{ album.external_urls.spotify }}" target="_blank"><img id="posterAPI" src="{{ album.images[1].url }}" alt="poster"></a>
     {% endfor %}
 
 </div>

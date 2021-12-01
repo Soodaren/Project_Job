@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class MusicService
 {
 
-    const TOKEN = "BQDyd0s3KJJdNX6Fv1fSuZVd72Qgbzt6sQmzxzq1vxYfkhVz7K1RO-6Jl7D-QGPB4FUFNNh3H73B80C25FNZMUSAk_SdTnHHSKp6LhqXbUUuKkq_T8DTaKToPQ4HVVxhPjk_I9SzVuJmRMPa0T-6f20yT3ujS_A";
+    const TOKEN = "BQCJefI9kiAUvAgZxVl5ZCIgL7cXTrKK9nfq9HbaP738IlEbBVb5r7riYvNlaYAyewdQ0i9Bi51-vz7h652532CAmPk-y6J3ygYeWRV8MoQ6BQUj2qEBtMW7MawS4JaBQ97iYN4BZO8KH5NjPVdQfqE0xfAR_as";
     const URL = "https://api.spotify.com/";
 
     /**
@@ -171,6 +171,8 @@ class MusicService
             $id = $albums['id'];
             $title = $albums['name'];
             $totalTracks = $albums['total_tracks'];
+            $url = $albums['external_urls'];
+            $externalUrl = $url['spotify'];
 
             //loop in array images found array albums to retrieve image
             foreach ($albums['images'] as $images) {
@@ -183,6 +185,7 @@ class MusicService
             $album->setTitle($title);
             $album->setAlbumId($id);
             $album->setTotalTracks($totalTracks);
+            $album->setUrl($externalUrl);
             $album->setReleaseDate($date);
 
             $posterName = uniqid() . '.jpg';
@@ -205,6 +208,8 @@ class MusicService
         $id = $album['id'];
         $title = $album['name'];
         $totalTracks = $album['total_tracks'];
+        $url = $album['external_urls'];
+        $externalUrl = $url['spotify'];
         $releaseDate = $album['release_date'];
         $date = \DateTime::createFromFormat('Y-m-d', $releaseDate);
 
@@ -227,6 +232,7 @@ class MusicService
         $result->setTitle($title);
         $result->setAlbumId($id);
         $result->setTotalTracks($totalTracks);
+        $result->setUrl($externalUrl);
         $result->setReleaseDate($date);
         $result->setPoster($posterName);
         $this->em->persist($result);

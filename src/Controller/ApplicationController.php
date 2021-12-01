@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApplicationController extends AbstractController
 {
     /**
-     * @Route("/application", name="application")
+     * @Route("/application/{id}", name="application")
      */
     public function index(Request $request): Response
     {

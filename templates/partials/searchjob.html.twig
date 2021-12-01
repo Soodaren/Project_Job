@@ -1,28 +1,34 @@
-<h1 id="hd">List of jobs</h1>
-<div class="ui category search">
-    <div class="ui icon input">
-        <input class="search" id="search-box" type="text" name="search" placeholder="Search jobs..." size="70"
-               style="border-radius: 25px;">
-        <i class="search icon"></i>
+<div id="search">
+    <h1 id="hd">List of jobs</h1>
+    <div class="ui category search">
+        <div class="ui icon input">
+            <input class="search" id="search-box" type="text" name="search" placeholder="Search jobs..." size="70">
+            <i class="search icon"></i>
+        </div>
     </div>
 </div>
 
 <div class="list">
     <div class="ui link cards">
-        {% for data in job %}
-            <div class="ui card" style="box-shadow: 10px 10px 41px -6px rgba(0,0,0,0.75); width: 250px;">
-                <div class="image">
-                    <img src="{{ asset('images/' ~ data.image) }}">
-                </div>
-                <div class="content">
-                    <p class="header">{{ data.title }}</p>
-                    <div class="extra content">
-                        <button class="ui blue button"><a class="btn" id="show" href="{{ path('login') }}"
-                                                          target="_blank">Show More</a></button>
+        {% if job == true %}
+            {% for data in job %}
+                <div class="ui card">
+                    <div class="image">
+                        <img src="{{ asset('images/' ~ data.image) }}">
                     </div>
+                    <div class="content">
+                        <p class="header">{{ data.title }}</p>
+                        <div class="extra content">
+                            <button class="ui blue button"><a class="btn" id="show" href="{{ path('login') }}"
+                                                              target="_blank">Show More</a></button>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <h1 id="notFound">No Job Found 😴</h1>
+        {% endif %}
+
     </div>
 </div>
